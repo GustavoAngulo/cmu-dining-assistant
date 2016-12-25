@@ -1,10 +1,8 @@
 import requests
 import json
 import flask
-# from flask import Flask
-# from flask import request
-# from flask import make_response
 from unidecode import unidecode
+from response_functions.get_time_response import get_time_response
 
 # Help taken from https://github.com/svet4/shipping-costs-sample/blob/master/app.py
 
@@ -14,9 +12,6 @@ CMU_Dining_Dict = {}
 for i in range(len(locations["locations"])):
     CMU_Dining_Dict[unidecode(locations["locations"][i]["name"])] = locations["locations"][i]
 
-# for i in range(len(locations["locations"])):
-#     print(unidecode(locations["locations"][i]["name"]))
-#     print(unidecode(locations["locations"][i]["location"]))
 
 
 
@@ -42,7 +37,7 @@ def webhook():
 
 def makeWebhookResult(req):
     if req.get("result").get("action") == "get_time":
-        speech = get_time_response(req)
+        speech = get_time_response(req, CMU_Dining_Dict)
     else:
         speech = {}
 
@@ -54,15 +49,15 @@ def makeWebhookResult(req):
         "displayText": speech,
         #"data": {},
         # "contextOut": [],
-        "source": "apiai-onlinestore-shipping"
+        "source": "apiai-cmu-dining-assisant"
     }
 
-def get_time_response(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    location = parameters.get("location")
-    location_status = parameters.get("location-status")
-    if location_status == "open":
-        time_hour = CMU_Dining_Dict[location]["times"][0]
+
+if __name__ == '__main__':
+    port = int(os.getenv('PORT', 5000))
+
+    print "Starting app on port %d" % port
+
+    app.run(debug=True, port=port, host='0.0.0.0')
 
 
