@@ -40,6 +40,7 @@ def get_time_response(req, CMU_dining_dict):
     if hour == None and minute == None:
         return (location + " is not open " + speech_date)
     else:
+        # changing military time to standard time
         if hour == 0:
             (hour, time_suffix) = (12, "am")
         elif hour < 12:
@@ -49,10 +50,16 @@ def get_time_response(req, CMU_dining_dict):
         else:
             (hour, time_suffix) = (hour - 12, "pm")
 
-        if location_status == "start":
-            return (location + ("opens at %d:%d" % (hour, minute))+time_suffix)
+        # prevents 8:5 instead of 8:05
+        if minute < 10:
+            minute = "0" + str(minute)
         else:
-            return (location + ("closes at %d:%d" % (hour, minute))+time_suffix)
+            minute = str(minute)
+
+        if location_status == "start":
+            return (location + (" opens at %d:" % (hour)) + minute + " " + time_suffix)
+        else:
+            return (location + (" closes at %d:" % (hour)) + minute + " " + time_suffix)
 
 
 
@@ -75,7 +82,7 @@ def get_time(location, status, date, CMU_dining_dict):
     info = CMU_dining_dict[location]
     for day in info["times"]:
         if day["start"]["day"] == date:
-            return (day[status]["hour"], day[status]["minute"])
+            return (day[status]["hour"], day[status]["min"])
     else:
         # location is not open on day date
         return (None,None)

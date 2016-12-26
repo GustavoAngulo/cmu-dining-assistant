@@ -30,7 +30,7 @@ def webhook():
     print(json.dumps(req, indent=4))
     sys.stdout.flush()
 
-    res = makeWebhookResult(req)
+    res = makeWebhookResult(req, CMU_Dining_Dict)
 
     res = json.dumps(res, indent=4)
     print(res)
@@ -40,7 +40,7 @@ def webhook():
     return r
 
 
-def makeWebhookResult(req):
+def makeWebhookResult(req, CMU_Dining_Dict):
     if req.get("result").get("action") == "get_time":
         speech = get_time_response(req, CMU_Dining_Dict)
     else:
