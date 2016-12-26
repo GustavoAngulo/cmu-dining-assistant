@@ -1,6 +1,7 @@
 import requests
 import json
 import flask
+import sys
 from unidecode import unidecode
 from response_functions.get_time_response import get_time_response
 
@@ -24,12 +25,15 @@ def webhook():
     req = flask.request.get_json(silent=True, force=True)
 
     print("Request:")
+    sys.stdout.flush()
     print(json.dumps(req, indent=4))
+    sys.stdout.flush()
 
     res = makeWebhookResult(req)
 
     res = json.dumps(res, indent=4)
     print(res)
+    sys.stdout.flush()
     r = flask.make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -57,6 +61,7 @@ if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
     print "Starting app on port %d" % port
+    sys.stdout.flush()
 
     app.run(debug=True, port=port, host='0.0.0.0')
 
