@@ -2,6 +2,7 @@ import requests
 import json
 import flask
 import sys
+import os
 from unidecode import unidecode
 from response_functions.get_time_response import get_time_response
 
