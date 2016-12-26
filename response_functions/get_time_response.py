@@ -8,17 +8,17 @@ def get_time_response(req, CMU_dining_dict):
     
     # reqDate == "" or "YYYY-DD-MM"
     reqDate = parameters.get("date")
-    date_responses = ["on Sunday",
-                      "on Monday", 
-                      "on Tuesday", 
-                      "on Wednesday", 
-                      "on Thursday", 
-                      "on Friday", 
-                      "on Saturday"]
+    date_responses = ["on Sunday.",
+                      "on Monday.", 
+                      "on Tuesday.", 
+                      "on Wednesday.", 
+                      "on Thursday.", 
+                      "on Friday.", 
+                      "on Saturday."]
 
     if reqDate == "":
         reqDate = (date.today().weekday() + 1) % 7
-        speech_date = "today"
+        speech_date = "today."
     else:
         reqDate = reqDate.split("-")
         reqDate = (date(int(reqDate[0]), 
@@ -57,10 +57,15 @@ def get_time_response(req, CMU_dining_dict):
             minute = str(minute)
 
         if location_status == "start":
-            return (location + (" opens at %d:" % (hour)) + minute + " " + time_suffix)
+            return (location + (" opens at %d:" % (hour)) 
+                        + minute 
+                        + " " + time_suffix 
+                        + " " + speech_date)
         else:
-            return (location + (" closes at %d:" % (hour)) + minute + " " + time_suffix)
-
+            return (location + (" closes at %d:" % (hour)) 
+                        + minute 
+                        + " " + time_suffix 
+                        + " " + speech_date)
 
 
 
