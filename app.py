@@ -6,9 +6,9 @@ import os
 from unidecode import unidecode
 from response_functions.get_time_response import get_time_response
 from response_functions.get_location_response import get_location_response
+from response_functions.get_info_response import get_info_response
 
 # Help taken from https://github.com/svet4/shipping-costs-sample/blob/master/app.py
-
 
 
 app = flask.Flask(__name__)
@@ -47,6 +47,9 @@ def makeWebhookResult(req, CMU_Dining_Dict):
     
     elif req.get("result").get("action") == "get_location":
         speech = get_location_response(req, CMU_Dining_Dict)
+
+    elif req.get("result").get("action") == "get_info":
+        speech = get_info_response(req, CMU_Dining_Dict)
 
     else:
         speech = {}
