@@ -5,6 +5,7 @@ import sys
 import os
 from unidecode import unidecode
 from response_functions.get_time_response import get_time_response
+from response_functions.get_location_response import get_location_response
 
 # Help taken from https://github.com/svet4/shipping-costs-sample/blob/master/app.py
 
@@ -43,6 +44,10 @@ def webhook():
 def makeWebhookResult(req, CMU_Dining_Dict):
     if req.get("result").get("action") == "get_time":
         speech = get_time_response(req, CMU_Dining_Dict)
+    
+    elif req.get("result").get("action") == "get_location":
+        speech = get_location_response(req, CMU_Dining_Dict)
+
     else:
         speech = {}
 
@@ -61,7 +66,7 @@ def makeWebhookResult(req, CMU_Dining_Dict):
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    print "Starting app on port %d" % port
+    print("Starting app on port %d" % port)
     sys.stdout.flush()
 
     app.run(debug=True, port=port, host='0.0.0.0')
