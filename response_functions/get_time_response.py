@@ -45,7 +45,7 @@ def get_time_response(req, CMU_dining_dict):
         if location_status == "open":
             return (location + " opens at " + time + " " + speech_date)
         
-        elif location_status == "close"
+        elif location_status == "close":
             return (location + " closes at " + time + " " + speech_date)
 
         elif location_status == "":
