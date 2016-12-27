@@ -78,7 +78,7 @@ def get_time(location, status, date, CMU_dining_dict):
         return (None,None)
 
 
-def modify_time(hour, minute)
+def modify_time(hour, minute):
     # hour
     #   type: int
     #   content: hour time 0-23
