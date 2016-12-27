@@ -6,6 +6,9 @@ def get_time_response(req, CMU_dining_dict):
     location = parameters.get("location")
     location_status = parameters.get("location-status")
     
+    ##############
+    ## get date ##
+    ##############
     # reqDate == "" or "YYYY-DD-MM"
     reqDate = parameters.get("date")
     date_responses = ["on Sunday.",
@@ -15,6 +18,7 @@ def get_time_response(req, CMU_dining_dict):
                       "on Thursday.", 
                       "on Friday.", 
                       "on Saturday."]
+
 
     # reqDate: 0 is Sunday, 1 Monday, ..., 6 Saturday             
     if reqDate == "":
@@ -27,8 +31,9 @@ def get_time_response(req, CMU_dining_dict):
                         int(reqDate[2])).weekday() + 1) % 7
         speech_date = date_responses[reqDate]
 
-
-
+    ##############
+    ## get time ##
+    ##############
     if location_status == "open":
         time = modify_time(*get_time(location, "start", reqDate, CMU_dining_dict))
 
@@ -38,8 +43,16 @@ def get_time_response(req, CMU_dining_dict):
         time_start = modify_time(*get_time(location, "start", reqDate, CMU_dining_dict))
         time_end = modify_time(*get_time(location, "end", reqDate, CMU_dining_dict))
 
-    if time == None or time_start == None or time_end == None:
+
+    #####################
+    ## return response ##
+    #####################
+    if (location_status == "open" or location_status == "close") and time == None: 
         return (location + " is not open " + speech_date)
+    
+    elif location_status == "" and (time_start == None or time_end == None):
+        return (location + " is not open " + speech_date)
+
     else:
         
         if location_status == "open":
