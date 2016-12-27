@@ -30,13 +30,13 @@ def get_time_response(req, CMU_dining_dict):
 
 
     if location_status == "open":
-        time = modify_time(get_time(location, "start", reqDate, CMU_dining_dict))
+        time = modify_time(*get_time(location, "start", reqDate, CMU_dining_dict))
 
     elif location_status == "close": 
-        time = modify_time(get_time(location, "end", reqDate, CMU_dining_dict))
+        time = modify_time(*get_time(location, "end", reqDate, CMU_dining_dict))
     else:
-        time_start = modify_time(get_time(location, "start", reqDate, CMU_dining_dict))
-        time_end = modify_time(get_time(location, "end", reqDate, CMU_dining_dict))
+        time_start = modify_time(*get_time(location, "start", reqDate, CMU_dining_dict))
+        time_end = modify_time(*get_time(location, "end", reqDate, CMU_dining_dict))
 
     if time == None or time_start == None or time_end == None:
         return (location + " is not open " + speech_date)
