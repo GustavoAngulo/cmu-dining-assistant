@@ -55,7 +55,7 @@ def makeWebhookResult(req, CMU_Dining_Dict):
         speech = {}
 
     print("Response:")
-    print(speech)
+    print(unidecode(speech))
 
     return {
         "speech": speech,
