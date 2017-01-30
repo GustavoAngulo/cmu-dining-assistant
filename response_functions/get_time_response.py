@@ -47,27 +47,31 @@ def get_time_response(req, CMU_dining_dict):
     #####################
     ## return response ##
     #####################
+
+
+
     if (location_status == "open" or location_status == "close") and time == None: 
-        return (location + " is not open " + speech_date)
+        message = (location + " is not open " + speech_date)
     
     elif location_status == "" and (time_start == None or time_end == None):
-        return (location + " is not open " + speech_date)
+        message = (location + " is not open " + speech_date)
 
     else:
         
         if location_status == "open":
-            return (location + " opens at " + time + " " + speech_date)
+            message = (location + " opens at " + time + " " + speech_date)
         
         elif location_status == "close":
-            return (location + " closes at " + time + " " + speech_date)
+            message = (location + " closes at " + time + " " + speech_date)
 
         elif location_status == "":
-            return (location + " opens at " + time_start + 
+            message = (location + " opens at " + time_start + 
                     " and closes at " + time_end + " " + speech_date)
             
         else:
-            return ("There was an error in retrieving the times for " + location)
+            message =  ("There was an error in retrieving the times for " + location + ".")
 
+    return (message + " Is there anything else I can help with?")
 
 def get_time(location, status, date, CMU_dining_dict):
     # location

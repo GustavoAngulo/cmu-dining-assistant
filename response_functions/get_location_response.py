@@ -6,4 +6,4 @@ def get_location_response(req, CMU_dining_dict):
     
     directions = CMU_dining_dict[location]["location"] # string
 
-    return (location + " is located in the " + directions)
+    return (location + " is located in the " + directions + ". Is there anything else I can help with?")
